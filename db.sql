@@ -1,0 +1,46 @@
+// La primera tabla a crear siempre tiene que ser la que no tiene FK
+CREATE TABLE DUENO(
+    ID VARCHAR(36) PRIMARY KEY,
+    RUT VARCHAR(12) NOT NULL UNIQUE,
+    NOMBRE VARCHAR(50) NOT NULL,
+    APELLIDO VARCHAR(50) NOT NULL,
+    EDAD INT NOT NULL
+);
+
+CREATE TABLE PERRO(
+    ID VARCHAR(36) PRIMARY KEY,
+    NOMBRE VARCHAR(50) NOT NULL,
+    RAZA VARCHAR(50) NOT NULL,
+    EDAD INT NOT NULL,
+
+    DUENO_FK VARCHAR(36) NOT NULL,
+    FOREIGN KEY (DUENO_FK) REFERENCES DUENO(ID)
+);
+
+INSERT INTO DUENO(
+    ID,
+    RUT,
+    NOMBRE,
+    APELLIDO,
+    EDAD
+) VALUES(
+	"e9c33ec7",
+	"12111333-4",
+	"Fernando",
+	"Garrido",
+	24
+);
+
+INSERT INTO PERRO(
+    ID,
+    NOMBRE,
+    RAZA,
+    EDAD,
+    DUENO_FK
+) VALUES(
+	"4c1d02da",
+	"Tyson",
+	"Golden",
+	5,
+	"e9c33ec7"
+);
