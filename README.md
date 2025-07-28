@@ -1,7 +1,7 @@
 ## Instalar depedencias de Python
 
 ```cli
-pip install cryptography PyMySQL dotenv "fastapi[standard]"
+pip install cryptography PyMySQL dotenv "fastapi[standard]" jinja2
 ```
 
 ## Ejecutar FAST API en modo desarrollo
