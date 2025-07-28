@@ -1,3 +1,3 @@
-from db import selectData as SeleccionarPerro
+from db import selectDataPerritos as SeleccionarPerro
 
 print(SeleccionarPerro())

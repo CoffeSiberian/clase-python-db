@@ -29,8 +29,13 @@ def insertData (rut: str, nombre: str, apellido: str, celular: int, eva3: float 
 
     return tryExecuteAlter(sql, params)
 
-def selectData () -> list[dict] | None:
+def selectDataPerritos () -> list[dict] | None:
     sql = "SELECT * FROM PERRO"
+
+    return tryExecuteSelect(sql)
+
+def selectDataDuenos () -> list[dict] | None:
+    sql = "SELECT * FROM DUENO"
 
     return tryExecuteSelect(sql)
 
