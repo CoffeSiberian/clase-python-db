@@ -34,6 +34,11 @@ def selectDataPerritos () -> list[dict] | None:
 
     return tryExecuteSelect(sql)
 
+def selectExampleData () -> list[dict] | None:
+    sql = "SELECT * FROM EJEMPLO"
+
+    return tryExecuteSelect(sql)
+
 def selectDataDuenos () -> list[dict] | None:
     sql = "SELECT * FROM DUENO"
 
