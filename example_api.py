@@ -21,7 +21,6 @@ def read_root(request: Request):
 def listaPerros(request: Request):
     db_perros = selectDataPerritos()
 
-    print(f"Perros en la base de datos: {db_perros}")
     contexto = {
         "perros": db_perros,
         "title": "Lista Perritos 🦊"
