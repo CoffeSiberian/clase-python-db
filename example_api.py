@@ -1,13 +1,11 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, Form, status
+from fastapi.params import Form
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from db import selectDataEjemplo
-from db import selectDataPerro as SeleccionarPerro
+from db import insertPerro, selectDataPerritos
 from db import selectDataDuenos as SeleccionarDuenos
-
-from db import selectExampleData
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -20,11 +18,12 @@ def read_root(request: Request):
     )
 
 @app.get("/perros", response_class=HTMLResponse)
-def duhsdjkhfbsdkfb(request: Request):
-    db_ejemplo = selectDataEjemplo()
+def listaPerros(request: Request):
+    db_perros = selectDataPerritos()
 
+    print(f"Perros en la base de datos: {db_perros}")
     contexto = {
-        "ejemplo": db_ejemplo,
+        "perros": db_perros,
         "title": "Lista Perritos 🦊"
     }
     
@@ -33,23 +32,27 @@ def duhsdjkhfbsdkfb(request: Request):
     )
 
 @app.get("/perros/agregar")
-def otra_pagina_2 (request: Request):
+def agregarPerro (request: Request):
     return templates.TemplateResponse(
         request=request, name="formulario.html"
     )
 
-@app.get("/perros/")
-def read_perros():
-    return SeleccionarPerro()
+@app.post("/perros/agregar")
+def crearPerro(
+    request: Request,
+    nombre: str = Form(...),
+    raza: str = Form(...),
+    edad: str = Form(...)
+):
+    ok = insertPerro(nombre, raza, edad, "e9c33ec7")
+    if not ok:
+        return templates.TemplateResponse(
+            "formulario.html",
+            {"request": request, "error": "No se pudo crear el perro."},
+            status_code=400,
+        )
+    return RedirectResponse(url="/perros", status_code=status.HTTP_303_SEE_OTHER)
 
 @app.get("/duenos/")
 def read_duenos():
     return SeleccionarDuenos()
-
-@app.get("/example/")
-def read_example():
-    res = selectExampleData()
-    
-    return {
-        "respuesta": res
-    }
