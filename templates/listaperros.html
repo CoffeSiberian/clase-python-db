@@ -37,6 +37,7 @@
                     <th scope="col">Nombre</th>
                     <th scope="col">Raza</th>
                     <th scope="col">EDAD</th>
+                    <th scope="col" class="text-end">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,18 @@
                     <td>{{ perro.NOMBRE }}</td>
                     <td>{{ perro.RAZA }}</td>
                     <td>{{ perro.EDAD }}</td>
+                    <td class="text-end">
+                        <form
+                            method="post"
+                            action="{{ request.url_for('eliminarPerro', perro_id=perro.ID) }}"
+                            onsubmit="return confirm('¿Seguro que deseas eliminar a {{ perro.NOMBRE }}?');"
+                            class="d-inline"
+                        >
+                            <button class="btn btn-sm btn-danger" type="submit">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

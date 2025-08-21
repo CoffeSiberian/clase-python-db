@@ -56,3 +56,9 @@ def insertPerro(nombre: str, raza: str, edad: int, dueno_fk: str) -> bool:
     sql = "INSERT INTO PERRO (id, nombre, raza, edad, DUENO_FK) VALUES (%s, %s, %s, %s, %s)"
     params = (str(uuid4()), nombre, raza, edad, dueno_fk)
     return tryExecuteAlter(sql, params)
+
+def deletePerro(perro_id: str) -> bool:
+    """Elimina un registro de la tabla PERRO por su ID."""
+    sql = "DELETE FROM PERRO WHERE id = %s"
+    params = (perro_id,)
+    return tryExecuteAlter(sql, params)

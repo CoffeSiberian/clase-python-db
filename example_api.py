@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from db import insertPerro, selectDataPerritos
+from db import insertPerro, selectDataPerritos, deletePerro
 from db import selectDataDuenos as SeleccionarDuenos
 
 app = FastAPI()
@@ -50,6 +50,11 @@ def crearPerro(
             {"request": request, "error": "No se pudo crear el perro."},
             status_code=400,
         )
+    return RedirectResponse(url="/perros", status_code=status.HTTP_303_SEE_OTHER)
+
+@app.post("/perros/{perro_id}/eliminar")
+def eliminarPerro(perro_id: str):
+    ok = deletePerro(perro_id)
     return RedirectResponse(url="/perros", status_code=status.HTTP_303_SEE_OTHER)
 
 @app.get("/duenos/")
